@@ -38,10 +38,6 @@ compoundDB <- repairDB("example.csv", reference = "InChIKey", susdat = "susdat_2
 compoundDB
 ```
 
-```
-              
-```
-
 ## Author
 Drew Szabo <br>
 GitHub: [drewszabo](https://github.com/drewszabo) <br>
