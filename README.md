@@ -11,6 +11,7 @@ A template is available on the repairDB repo: [template.csv](https://github.com/
 ```
 library(tidyverse)
 library(webchem)
+library(rcdk)
 ```
 
 ## Usage
