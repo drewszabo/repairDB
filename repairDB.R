@@ -32,6 +32,7 @@ repairDB <- function(filename, reference, susdat) {
   if(reference == "SMILES"){
     compoundDB$PubChem_CID[is.na(compoundDB$PubChem_CID)] <- 
       susDatDB$PubChem_CID[match(compoundDB$SMILES, susDatDB$SMILES_Dashboard)[which(is.na(compoundDB$PubChem_CID))]]
+    compoundDB[compoundDB == ""] <- NA
     compoundDB <- compoundDB %>%
       rowwise() %>%
       mutate(PubChem_CID = ifelse(is.na(PubChem_CID) & !is.na(SMILES),
@@ -41,6 +42,7 @@ repairDB <- function(filename, reference, susdat) {
   } else if(reference == "InChI"){
     compoundDB$PubChem_CID[is.na(compoundDB$PubChem_CID)] <- 
       susDatDB$PubChem_CID[match(compoundDB$InChI, susDatDB$StdInChI)[which(is.na(compoundDB$PubChem_CID))]]
+    compoundDB[compoundDB == ""] <- NA
     compoundDB <- compoundDB %>%
       rowwise() %>%
       mutate(PubChem_CID = ifelse(is.na(PubChem_CID) & !is.na(InChI),
@@ -50,6 +52,7 @@ repairDB <- function(filename, reference, susdat) {
   } else if(reference == "InChIKey"){
     compoundDB$PubChem_CID[is.na(compoundDB$PubChem_CID)] <- 
       susDatDB$PubChem_CID[match(compoundDB$InChIKey, susDatDB$StdInChIKey)[which(is.na(compoundDB$PubChem_CID))]]
+    compoundDB[compoundDB == ""] <- NA
     compoundDB <- compoundDB %>%
       rowwise() %>%
       mutate(PubChem_CID = ifelse(is.na(PubChem_CID) & !is.na(InChIKey),
@@ -59,6 +62,7 @@ repairDB <- function(filename, reference, susdat) {
   } else if(reference == "CAS_RN"){
     compoundDB$PubChem_CID[is.na(compoundDB$PubChem_CID)] <- 
       susDatDB$PubChem_CID[match(compoundDB$CAS_RN, susDatDB$CAS_RN_Dashboard)[which(is.na(compoundDB$PubChem_CID))]]
+    compoundDB[compoundDB == ""] <- NA
     compoundDB <- compoundDB %>%
       rowwise() %>%
       mutate(PubChem_CID = ifelse(is.na(PubChem_CID) & !is.na(CAS_RN),
@@ -73,6 +77,7 @@ repairDB <- function(filename, reference, susdat) {
                                 unlist(get_cid(Name, from = "name", match = "na", domain = "compound", verbose = TRUE)[[2]]),
                                 as.character(PubChem_CID))) %>%
     ungroup()
+  compoundDB[compoundDB == ""] <- NA
   
   #-----Query PubChem for information-----
   pubChemProp <- pc_prop(compoundDB$PubChem_CID)
