@@ -17,10 +17,7 @@ repairDB <- function(filename, reference, susdat) {
   #-----Remove invalid entries-----
   compoundDB <- compoundDB %>%
     rowwise() %>%
-    mutate(InChIKey = ifelse(is.inchikey_format(InChIKey),
-                             as.character(InChIKey),
-                             NA),
-           SMILES = ifelse(is.smiles(SMILES),
+    mutate(SMILES = ifelse(is.smiles(SMILES),
                            as.character(SMILES),
                            NA),
            CAS_RN = ifelse(is.cas(CAS_RN),
