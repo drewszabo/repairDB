@@ -121,6 +121,14 @@ repairDB <- function(filename, reference, susdat) {
   compoundDB$ChemSpiderID[is.na(compoundDB$ChemSpiderID)] <- 
     susDatDB$ChemSpiderID[match(compoundDB$PubChem_CID, susDatDB$PubChem_CID)[which(is.na(compoundDB$ChemSpiderID))]]
   
+  #M+H+
+  compoundDB$`M+H+`[is.na(compoundDB$`M+H+`)] <- 
+    susDatDB$`M+H+`[match(compoundDB$PubChem_CID, susDatDB$PubChem_CID)[which(is.na(compoundDB$`M+H+`))]]
+  
+  #M-H-
+  compoundDB$`M-H-`[is.na(compoundDB$`M-H-`)] <- 
+    susDatDB$`M-H-`[match(compoundDB$PubChem_CID, susDatDB$PubChem_CID)[which(is.na(compoundDB$`M-H-`))]]
+  
   #-----Removed duplicates based on Name-----
   compoundDB <- compoundDB %>%
     distinct(Name, .keep_all = TRUE)
